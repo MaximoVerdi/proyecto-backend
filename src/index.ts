@@ -1,10 +1,7 @@
-// Importamos las dependencias necesarias para el proyecto
 import {Schema, model, connect } from 'mongoose' 
 
-// Cargamos el archivo .env para poder usar las variables de entorno
 process.loadEnvFile()
 
-// Creamos variable URI_DB que contiene la URI de la base de datos, si no existe se le asigna un string vacio
 const URI_DB = process.env.URI_DB || "";
 
 // Conectamos a la base de datos usando la URI que tenemos en el archivo .env
@@ -33,7 +30,6 @@ const sneakersSchema = new Schema({
     stock: {type: Number, required: true},
 })
 
-// Creamos el modelo de los Sneakers usando el esquema que acabamos de definir
 const Sneaker = model("Sneaker", sneakersSchema)
 
 // Función para crear un nuevo "Sneaker"
@@ -64,6 +60,7 @@ const createSneaker = async (newSneaker: ISneaker) => {
     }
 }
 
+// Función para obtener todos los "Sneakers" de la base de datos
 const findAllSneakers = async () => {
     try {
         const sneakers = await Sneaker.find()
@@ -155,12 +152,10 @@ const deleteSneaker = async (id: string) => {
 }
 
 // Función Principal para ejecutar el código
-// Se conecta a la base de datos y realiza la accion deseada ejecutando una de las funciones anteriores
 const main = async () => {
     connectDB()
     const result = await findAllSneakers()
     console.log(result)
 }
 
-// Ejecución la función principal
 main()
