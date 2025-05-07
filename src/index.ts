@@ -38,6 +38,11 @@ const crearSneaker = async (newSneaker: ISneaker) => {
         }
 
 
+        const existingSneaker = await Sneaker.findOne({color});
+        if (existingSneaker) {
+            return ({succes: false, message: "Ya existe un sneaker con ese color"})
+        }
+        
         const newSneakerToDb = new Sneaker({model, color, price, stock})
         await newSneakerToDb.save()
         return {
