@@ -64,6 +64,25 @@ const createSneaker = async (newSneaker: ISneaker) => {
     }
 }
 
+const findAllSneakers = async () => {
+    try {
+        const sneakers = await Sneaker.find()
+        if (sneakers.length === 0) {
+            return ({succes: false, message: "No sneakers found"})
+        }
+        return {
+            succes: true,
+            data: sneakers,
+            message: `Sneakers found: ${sneakers.length}`, 
+        }
+    } catch (error: any) {
+        return {
+            succes: false,
+            message: error.message
+        }
+    }
+}
+
 // Función para encontrar un "Sneaker"  por su color
 const findSneakerByColor = async (color: string) => { 
     try {
@@ -139,7 +158,7 @@ const deleteSneaker = async (id: string) => {
 // Se conecta a la base de datos y realiza la accion deseada ejecutando una de las funciones anteriores
 const main = async () => {
     connectDB()
-    const result = await findSneakerByColor("Chicago")
+    const result = await findAllSneakers()
     console.log(result)
 }
 
