@@ -1,9 +1,13 @@
+// Importamos las dependencias necesarias para el proyecto
 import {Schema, model, connect } from 'mongoose' 
 
+// Cargamos el archivo .env para poder usar las variables de entorno
 process.loadEnvFile()
 
+// Creamos variable URI_DB que contiene la URI de la base de datos, si no existe se le asigna un string vacio
 const URI_DB = process.env.URI_DB || "";
 
+// Conectamos a la base de datos usando la URI que tenemos en el archivo .env
 const connectDB = async () => {
     try {
         await connect(URI_DB)
@@ -13,6 +17,7 @@ const connectDB = async () => {
     }
 }
 
+// Definimos la interfaz de los Sneakers, para tipar los atributos que vamos a usar en el esquema
 interface ISneaker {
     model: string,
     color: string,
@@ -20,6 +25,7 @@ interface ISneaker {
     stock: number
 }
 
+// Aquì definimos el esquema de los Sneakers tipando cada atributo
 const sneakersSchema = new Schema({
     model: {type: String, required: true},
     color: {type: String, required: true},
@@ -27,9 +33,10 @@ const sneakersSchema = new Schema({
     stock: {type: Number, required: true},
 })
 
+// Creamos el modelo de los Sneakers usando el esquema que acabamos de definir
 const Sneaker = model("Sneaker", sneakersSchema)
 
-
+// Función para crear un nuevo "Sneaker"
 const createSneaker = async (newSneaker: ISneaker) => {
     try {
         const {model, color, price, stock} = newSneaker
@@ -57,6 +64,7 @@ const createSneaker = async (newSneaker: ISneaker) => {
     }
 }
 
+// Función para encontrar un "Sneaker"  por su color
 const findSneakerByColor = async (color: string) => { 
     try {
         const sneakers = await Sneaker.find({color})
@@ -76,6 +84,7 @@ const findSneakerByColor = async (color: string) => {
     }
 }
 
+// Función para modificar los datos de un "Sneaker" seleccionandolo por su id
 const updateSneaker = async (id: string, newSneaker: ISneaker) => {
     try {
         const {model, color, price, stock} = newSneaker
@@ -105,6 +114,7 @@ const updateSneaker = async (id: string, newSneaker: ISneaker) => {
     }
 }
 
+// Función para eliminar un "Sneaker" seleccionandolo por su id
 const deleteSneaker = async (id: string) => {
     try {
         const deletedSneaker = await Sneaker.findByIdAndDelete(id)
@@ -125,10 +135,13 @@ const deleteSneaker = async (id: string) => {
     }
 }
 
+// Función Principal para ejecutar el código
+// Se conecta a la base de datos y realiza la accion deseada ejecutando una de las funciones anteriores
 const main = async () => {
     connectDB()
     const result = await findSneakerByColor("Chicago")
     console.log(result)
 }
 
+// Ejecución la función principal
 main()
