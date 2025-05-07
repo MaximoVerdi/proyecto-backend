@@ -66,7 +66,7 @@ const findSneakerByColor = async (color: string) => {
         return {
             succes: true,
             data: sneakers,
-            message: "Sneaker found"
+            message: `Sneaker found: ${sneakers.length}`, 
         }
     } catch (error: any) {
         return {
@@ -105,9 +105,29 @@ const updateSneaker = async (id: string, newSneaker: ISneaker) => {
     }
 }
 
+const deleteSneaker = async (id: string) => {
+    try {
+        const deletedSneaker = await Sneaker.findByIdAndDelete(id)
+        if (!deletedSneaker) {
+            return ({succes:false, message: "Sneaker not found"})
+        }
+
+        return {
+            succes: true,
+            data: deletedSneaker,
+            message: "Sneaker deleted successfully"
+        }
+    } catch (error: any) {
+        return {
+            succes: false,
+            message: error.message
+        }
+    }
+}
+
 const main = async () => {
     connectDB()
-    const result = await updateSneaker("681b63329a858737c15492ab", {model: "Jordan 1", color: "Chicago", price: 7500, stock: 3})
+    const result = await findSneakerByColor("Chicago")
     console.log(result)
 }
 
