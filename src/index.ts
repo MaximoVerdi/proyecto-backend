@@ -13,4 +13,11 @@ const connectDB = async () => {
     }
 }
 
+const sneakersSchema = new Schema({
+    model: {type: String, required: true},
+    color: {type: String, required: true},
+    price: {type: Number, required: true},
+    stock: {type: Number, required: true},
+})
+
 connectDB()
