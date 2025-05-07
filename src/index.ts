@@ -13,6 +13,13 @@ const connectDB = async () => {
     }
 }
 
+interface ISneaker {
+    model: string,
+    color: string,
+    price: number,
+    stock: number
+}
+
 const sneakersSchema = new Schema({
     model: {type: String, required: true},
     color: {type: String, required: true},
@@ -20,4 +27,31 @@ const sneakersSchema = new Schema({
     stock: {type: Number, required: true},
 })
 
+const Sneaker = model("Sneaker", sneakersSchema)
+
+
+const crearSneaker = async (newSneaker: ISneaker) => {
+    try {
+        const {model, color, price, stock} = newSneaker
+        if (!model || !color || !price || !stock) {
+            return ({succes: false, message: "Faltan datos"})
+        }
+
+
+        const newSneakerToDb = new Sneaker({model, color, price, stock})
+        await newSneakerToDb.save()
+        return {
+            succes: true,
+            data: newSneakerToDb,
+            message: "Sneaker creado correctamente"
+        }
+    } catch (error: any) {
+        return {
+            succes: false,
+            message: error.message
+        }
+    }
+}
+
+crearSneaker({model: "Jordan 1", color: "Chicago", price: 8500, stock: 2})
 connectDB()
