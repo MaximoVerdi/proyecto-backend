@@ -1,0 +1,26 @@
+{
+  "name": "proyecto-backend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/MaximoVerdi/proyecto-backend#readme",
+  "bugs": {
+    "url": "https://github.com/MaximoVerdi/proyecto-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximoVerdi/proyecto-backend.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn ./src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "tsc && node ./dist/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
