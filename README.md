@@ -23,7 +23,7 @@ Este proyecto es un sistema básico para gestionar productos del tipo _Sneakers_
 1. Cloná el repositorio:
 
 ```bash
-git clone https://github.com/tuusuario/sneakers-manager.git
+git clone https://github.com/MaximoVerdi/proyecto-backend
 cd sneakers-manager
 ```
 
