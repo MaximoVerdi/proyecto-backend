@@ -113,11 +113,6 @@ deleteSneaker("id_del_sneaker");
 
 - Este proyecto está pensado para aprender a crear un CRUD básico con MongoDB y TypeScript.
 
-## 📌 To-Do
-
-- [ ] Conexión con Express para exponer endpoints.
-- [ ] Testing con Jest.
-
 ---
 
 ## 👨‍💻 Autor
